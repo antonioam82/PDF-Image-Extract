@@ -16,10 +16,8 @@ while True:
     for page_index in range(len(pdf_file)):
         page = pdf_file[page_index]
         image_list = page.getImageList()
-        if image_list:
-            print('{} imágenes encontradas en la página {}'.format(len(image_list),page_index))
-        else:
-            print('0 imágenes encontradas en la página {}'.format(page_index))
+        print('{} imágenes encontradas en la página {}'.format(len(image_list),page_index))
+        
         for image_index, img in enumerate(page.getImageList(), start=1):
             xref = img[0]
             base_image = pdf_file.extractImage(xref)
