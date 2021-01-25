@@ -17,14 +17,13 @@ def check_dir():
 def check_file():
     while True:
         filen = input("Introduce archivo PDF: ")
-        if filen in os.listdir():
+        if filen in os.listdir() and filen.endswith(".pdf"):
             break
         else:
-            print("ARCHIVO NO ENCONTRADO.")
+            print("ARCHIVO NO VÁLIDO.")
     return filen
 
 while True:
-    #dire = input("Introducir directorio: ")
     dire = check_dir()
     os.chdir(dire)
     file = check_file()
