@@ -5,10 +5,29 @@ from PIL import Image
 import zipfile
 from VALID import ns
 
+def check_dir():
+    while True:
+        direc = input("Introducir directorio: ")
+        if os.path.isdir(direc):
+            break
+        else:
+            print("DIRECTORIO NO VÁLIDO.")
+    return direc
+
+def check_file():
+    while True:
+        filen = input("Introduce archivo PDF: ")
+        if filen in os.listdir():
+            break
+        else:
+            print("ARCHIVO NO ENCONTRADO.")
+    return filen
+
 while True:
-    dire = input("Introducir directorio: ")
+    #dire = input("Introducir directorio: ")
+    dire = check_dir()
     os.chdir(dire)
-    file = input("Introduce archivo PDF: ")
+    file = check_file()
     images = []
 
     pdf_file = fitz.open(file)
