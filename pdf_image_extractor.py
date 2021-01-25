@@ -29,12 +29,13 @@ while True:
             image_name = (f"image{page_index+1}_{image_index}.{image_ext}")
             image.save(open(image_name,"wb"))
             images.append(image_name)
+            print(images)
 
-        with zipfile.ZipFile("images.zip","w") as zfile:
-            for i in images:
-                zfile.write(i)
-                os.remove(i)
-        zfile.close()
+    with zipfile.ZipFile("images.zip","w") as zfile:
+        for i in images:
+            zfile.write(i)
+            os.remove(i)
+    zfile.close()
 
     conti = ns(input("¿Continuar(n/s)?: "))
     if conti == "n":
