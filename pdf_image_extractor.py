@@ -24,6 +24,7 @@ def check_file():
     return filen
 
 while True:
+    #dire = input("Introducir directorio: ")
     dire = check_dir()
     os.chdir(dire)
     file = check_file()
@@ -45,8 +46,9 @@ while True:
             image_name = (f"image{page_index+1}_{image_index}.{image_ext}")
             image.save(open(image_name,"wb"))
             images.append(image_name)
-
-    with zipfile.ZipFile("images.zip","w") as zfile:
+    folder_name, ex = os.path.splitext(file)
+    
+    with zipfile.ZipFile(folder_name+".zip","w") as zfile:
         for i in images:
             zfile.write(i)
             os.remove(i)
