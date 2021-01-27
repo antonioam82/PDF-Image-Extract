@@ -24,7 +24,6 @@ def check_file():
     return filen
 
 while True:
-    #dire = input("Introducir directorio: ")
     dire = check_dir()
     os.chdir(dire)
     file = check_file()
