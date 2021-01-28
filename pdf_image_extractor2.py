@@ -9,7 +9,10 @@ class app():
 
         self.root = Tk()
         self.root.title('PDF Image Extractor')
-        self.root.geometry('800x470')
+        self.root.geometry('797x470')
+        self.current_dir = StringVar()
+        self.currentDir = Entry(self.root,width=132,textvariable=self.current_dir)
+        self.currentDir.place(x=0,y=0)
 
         self.root.mainloop()
 
