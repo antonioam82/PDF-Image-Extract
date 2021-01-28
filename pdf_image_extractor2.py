@@ -1,6 +1,7 @@
 from tkinter import *
 import zipfile
 import io
+import os
 from PIL import Image
 import fitz
 
@@ -14,7 +15,13 @@ class app():
         self.currentDir = Entry(self.root,width=132,textvariable=self.current_dir)
         self.currentDir.place(x=0,y=0)
 
+        self.get_dir()
+        
         self.root.mainloop()
+
+    def get_dir(self):
+        self.current_dir.set(os.getcwd())
 
 if __name__=="__main__":
     app()
+
