@@ -24,7 +24,9 @@ class app():
         self.pges = Entry(self.root,width=18,bg='black',fg='light green',textvariable=self.num_pages)
         self.pges.place(x=649,y=38)
         self.num_pages.set(0)
-
+        self.pdf_name = StringVar()
+        self.pdfName = Entry(self.root,width=97,bg='black',fg='light green',textvariable=self.pdf_name)
+        self.pdfName.place(x=10,y=330)
         self.get_dir()
         
         self.root.mainloop()
