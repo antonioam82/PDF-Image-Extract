@@ -3,7 +3,11 @@ import io
 import os
 from PIL import Image
 import zipfile
-from VALID import ns
+
+def ns(c):
+    while c!=("s") and c!=("n"):
+        print(chr(7));c=input("Escribe solo \'n\' o \'s\' según su opción: ")
+    return(c)
 
 def check_dir():
     while True:
@@ -24,6 +28,7 @@ def check_file():
     return filen
 
 while True:
+    print("------------------PDF IMAGE EXTRACTOR------------------\n")
     dire = check_dir()
     os.chdir(dire)
     file = check_file()
@@ -52,6 +57,7 @@ while True:
             zfile.write(i)
             os.remove(i)
     zfile.close()
+    print("\nCreado archivo \'{}\'.".format(folder_name+".zip"))
 
     conti = ns(input("¿Continuar(n/s)?: "))
     if conti == "n":
