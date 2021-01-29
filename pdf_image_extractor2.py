@@ -16,8 +16,10 @@ class app():
         self.current_dir = StringVar()
         self.currentDir = Entry(self.root,width=132,textvariable=self.current_dir)
         self.currentDir.place(x=0,y=0)
-        self.display = slt.ScrolledText(self.root,width=70,height=18,bg='blue',fg='light green')
+        self.display = slt.ScrolledText(self.root,width=70,height=18,bg='dark green',fg='lawn green')
         self.display.place(x=10,y=30)
+        self.pdft = Label(self.root,text="PDF TITLE:",bg='light slate gray',fg='white')
+        self.pdft.place(x=600,y=38)
 
         self.get_dir()
         
@@ -28,4 +30,5 @@ class app():
 
 if __name__=="__main__":
     app()
+
 
