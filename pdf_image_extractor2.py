@@ -18,8 +18,12 @@ class app():
         self.currentDir.place(x=0,y=0)
         self.display = slt.ScrolledText(self.root,width=70,height=18,bg='dark green',fg='lawn green')
         self.display.place(x=10,y=30)
-        self.pdft = Label(self.root,text="PDF TITLE:",bg='light slate gray',fg='white')
-        self.pdft.place(x=600,y=38)
+        self.pgeslabel = Label(self.root,text="PAGES:",bg='light slate gray',fg='white')
+        self.pgeslabel.place(x=600,y=38)
+        self.num_pages = IntVar()
+        self.pges = Entry(self.root,width=18,bg='black',fg='light green',textvariable=self.num_pages)
+        self.pges.place(x=649,y=38)
+        self.num_pages.set(0)
 
         self.get_dir()
         
@@ -30,5 +34,6 @@ class app():
 
 if __name__=="__main__":
     app()
+
 
 
