@@ -25,8 +25,10 @@ class app():
         self.pges.place(x=649,y=38)
         self.num_pages.set(0)
         self.pdf_name = StringVar()
-        self.pdfName = Entry(self.root,width=97,bg='black',fg='light green',textvariable=self.pdf_name)
-        self.pdfName.place(x=10,y=330)
+        self.pdfName = Entry(self.root,width=44,bg='black',fg='light green',font=('arial',14),textvariable=self.pdf_name)
+        self.pdfName.place(x=90,y=328)
+        self.btnSearch = Button(self.root,text="SEARCH PDF")
+        self.btnSearch.place(x=10,y=328)
         self.get_dir()
         
         self.root.mainloop()
