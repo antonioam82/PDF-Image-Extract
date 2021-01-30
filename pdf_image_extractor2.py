@@ -30,6 +30,10 @@ class app():
         self.pdfName.place(x=90,y=328)
         self.btnSearch = Button(self.root,text="SEARCH PDF",command=self.load_pdf)
         self.btnSearch.place(x=10,y=328)
+        self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",width=80)
+        self.btnExtract.place(x=10,y=370)
+        self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",width=80)
+        self.btnExtractZip.place(x=10,y=407)
         self.get_dir()
         
         self.root.mainloop()
