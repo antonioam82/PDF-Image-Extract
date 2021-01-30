@@ -28,11 +28,11 @@ class app():
         self.pdf_name = StringVar()
         self.pdfName = Entry(self.root,width=44,bg='black',fg='light green',font=('arial',14),textvariable=self.pdf_name)
         self.pdfName.place(x=90,y=328)
-        self.btnSearch = Button(self.root,text="SEARCH PDF",command=self.load_pdf)
+        self.btnSearch = Button(self.root,text="SEARCH PDF",bg="gold3",command=self.load_pdf)
         self.btnSearch.place(x=10,y=328)
-        self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",width=80)
+        self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",bg="PaleGreen1",width=80)
         self.btnExtract.place(x=10,y=370)
-        self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",width=80)
+        self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",bg="PaleGreen1",width=80)
         self.btnExtractZip.place(x=10,y=407)
         self.get_dir()
         
@@ -49,7 +49,6 @@ class app():
             self.pdf_name.set(self.name)
             self.num_pages.set(len(pdf_file))
         
-
 if __name__=="__main__":
     app()
 
