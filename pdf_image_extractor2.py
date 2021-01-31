@@ -19,8 +19,11 @@ class app():
         self.canvas.place(x=603,y=100)
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
+        
         self.pages_box = Listbox(self.canvas,width=23,height=18)
         self.pages_box.pack()
+        self.pages_box.config(yscrollcommand = self.scrollbar.set)
+        self.scrollbar.config(command = self.pages_box.yview)
         self.currentDir = Entry(self.root,width=132,textvariable=self.current_dir)
         self.currentDir.place(x=0,y=0)
         self.display = slt.ScrolledText(self.root,width=70,height=18,bg='dark green',fg='lawn green')
