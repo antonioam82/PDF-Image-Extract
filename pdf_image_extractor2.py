@@ -50,10 +50,19 @@ class app():
     def load_pdf(self):
         pdf_root = filedialog.askopenfilename(initialdir="/",title="SELECT PDF", filetypes=(("PDF files","*.pdf"),("all files","*.*")))
         if pdf_root != "":
+            self.display.insert(END,pdf_root+"\n")
             self.name = (pdf_root.split("/")[-1])
             pdf_file = fitz.open(pdf_root)
             self.pdf_name.set(self.name)
             self.num_pages.set(len(pdf_file))
+            self.view_pages()
+
+    def view_pages(self):
+        #print(self.num_pages.get())
+        for i in range(self.num_pages.get()):
+            self.pages_box.insert(END,"PAGE: {}\n".format(i))
+        self.pages_box.insert(END,"ALL PAGES")
+            
         
 
 if __name__=="__main__":
