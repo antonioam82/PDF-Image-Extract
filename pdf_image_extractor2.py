@@ -12,9 +12,15 @@ class app():
 
         self.root = Tk()
         self.root.title('PDF Image Extractor')
-        self.root.geometry('790x470')
+        self.root.geometry('782x470')
         self.root.configure(bg='light slate gray')
         self.current_dir = StringVar()
+        self.canvas = Canvas(self.root,width=157,height=290)
+        self.canvas.place(x=603,y=100)
+        self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
+        self.scrollbar.pack(side=RIGHT,fill=Y)
+        self.pages_box = slt.ScrolledText(self.root,width=17,height=18)
+        self.pages_box.place(x=603,y=100)
         self.currentDir = Entry(self.root,width=132,textvariable=self.current_dir)
         self.currentDir.place(x=0,y=0)
         self.display = slt.ScrolledText(self.root,width=70,height=18,bg='dark green',fg='lawn green')
@@ -49,8 +55,10 @@ class app():
             self.pdf_name.set(self.name)
             self.num_pages.set(len(pdf_file))
         
+
 if __name__=="__main__":
     app()
+
 
 
 
