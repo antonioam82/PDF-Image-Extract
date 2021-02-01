@@ -20,7 +20,7 @@ class app():
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
         
-        self.pages_box = Listbox(self.canvas,width=23,height=18)
+        self.pages_box = Listbox(self.canvas,width=23,height=19)
         self.pages_box.pack()
         self.pages_box.config(yscrollcommand = self.scrollbar.set)
         self.scrollbar.config(command = self.pages_box.yview)
@@ -42,7 +42,9 @@ class app():
         self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",bg="PaleGreen1",width=81)
         self.btnExtract.place(x=10,y=370)
         self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",bg="PaleGreen1",width=81)
-        self.btnExtractZip.place(x=10,y=407)
+        self.btnExtractZip.place(x=10,y=409)
+        self.btnSelect = Button(self.root,text="SELECT",width=21,bg="gold3")
+        self.btnSelect.place(x=604,y=409)
         self.get_dir()
         
         self.root.mainloop()
@@ -70,6 +72,7 @@ class app():
 
 if __name__=="__main__":
     app()
+
 
 
 
