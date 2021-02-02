@@ -72,10 +72,12 @@ class app():
 
     def select_page(self):
         pdf_index = self.pages_box.curselection()[0]
+        if pdf_index == self.num_pages.get():
+            dis_text = "ALL PAGES SELECTED\n"
+        else:
+            dis_text = "SELECTED PAGE {}\n".format(pdf_index)
         self.selected_pages.append(pdf_index)
-        self.display.insert(END,"SELECTED PAGE {}\n".format(pdf_index))
-        
-        #print(self.selected_pages)
+        self.display.insert(END,dis_text)
             
 if __name__=="__main__":
     app()
