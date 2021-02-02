@@ -35,6 +35,8 @@ class app():
         self.pges.place(x=649,y=38)
         self.num_pages.set(0)
         self.pdf_name = StringVar()
+        self.listlabel = Label(self.root,text="PAGE\S TO EXTRACT FROM:",bg='light slate gray',fg='white')
+        self.listlabel.place(x=601,y=77)
         self.pdfName = Entry(self.root,width=45,bg='black',fg='light green',font=('arial',14),textvariable=self.pdf_name)
         self.pdfName.place(x=90,y=328)
         self.btnSearch = Button(self.root,text="SEARCH PDF",bg="gold3",command=self.load_pdf)
@@ -68,8 +70,6 @@ class app():
             self.pages_box.insert(END,"PAGE: {}\n".format(i))
         self.pages_box.insert(END,"ALL PAGES")
             
-        
-
 if __name__=="__main__":
     app()
 
