@@ -19,6 +19,7 @@ class app():
         self.canvas.place(x=603,y=100)
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
+        self.selected_pages = []
         
         self.pages_box = Listbox(self.canvas,width=23,height=19)
         self.pages_box.pack()
@@ -45,7 +46,7 @@ class app():
         self.btnExtract.place(x=10,y=370)
         self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",bg="PaleGreen1",width=81)
         self.btnExtractZip.place(x=10,y=409)
-        self.btnSelect = Button(self.root,text="SELECT",width=21,bg="gold3")
+        self.btnSelect = Button(self.root,text="SELECT",width=21,bg="gold3",command=self.select_page)
         self.btnSelect.place(x=604,y=409)
         self.get_dir()
         
@@ -65,10 +66,16 @@ class app():
             self.view_pages()
 
     def view_pages(self):
-        #print(self.num_pages.get())
         for i in range(self.num_pages.get()):
             self.pages_box.insert(END,"PAGE: {}\n".format(i))
         self.pages_box.insert(END,"ALL PAGES")
+
+    def select_page(self):
+        pdf_index = self.pages_box.curselection()[0]
+        self.selected_pages.append(pdf_index)
+        self.display.insert(END,"SELECTED PAGE {}\n".format(pdf_index))
+        
+        #print(self.selected_pages)
             
 if __name__=="__main__":
     app()
