@@ -4,6 +4,7 @@ import tkinter.scrolledtext as slt
 import zipfile
 import io
 import os
+import threading
 from PIL import Image
 import fitz
 
