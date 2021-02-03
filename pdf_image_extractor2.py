@@ -82,8 +82,6 @@ class app():
         
         #print(self.selected_pages)
             
-        
-
 if __name__=="__main__":
     app()
 
