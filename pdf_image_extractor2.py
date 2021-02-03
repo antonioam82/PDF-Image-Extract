@@ -87,8 +87,6 @@ class app():
         for p in selected_pages:
             page = self.pdf_file[p]
             
-        
-
 if __name__=="__main__":
     app()
 
