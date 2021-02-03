@@ -77,8 +77,13 @@ class app():
         else:
             dis_text = "SELECTED PAGE {}\n".format(pdf_index)
         self.selected_pages.append(pdf_index)
+        self.selected_pages.sort()
         self.display.insert(END,dis_text)
+        
+        #print(self.selected_pages)
             
+        
+
 if __name__=="__main__":
     app()
 
