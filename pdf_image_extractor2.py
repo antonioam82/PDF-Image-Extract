@@ -43,7 +43,7 @@ class app():
         self.pdfName.place(x=90,y=328)
         self.btnSearch = Button(self.root,text="SEARCH PDF",bg="gold3",command=self.load_pdf)
         self.btnSearch.place(x=10,y=328)
-        self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",bg="PaleGreen1",width=81)
+        self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",bg="PaleGreen1",width=81,command=self.init_extract)
         self.btnExtract.place(x=10,y=370)
         self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",bg="PaleGreen1",width=81)
         self.btnExtractZip.place(x=10,y=409)
@@ -84,10 +84,26 @@ class app():
         self.display.insert(END,dis_text)
         
         #print(self.selected_pages)
+        
     def extract(self):
-        for p in selected_pages:
+        for p in self.selected_pages:
             page = self.pdf_file[p]
-            
+            image_list = page.getImageList()
+            count = 0
+            for image_index, img in enumerate(image_list, start=1):
+                xref = img[0]
+                base_image = self.pdf_file.extractImage(xref)
+                image_bytes = base_image["image"]
+                image_ext = base_image["ext"]
+                image = Image.open(io.BytesIO(image_bytes))
+                image_name = ("image{}_{}.{}".format(p,count,image_ext))
+                image.save(open(image_name,"wb"))
+                count+=1
+
+    def init_extract(self):
+        t = threading.Thread(target=self.extract)
+        t.start()
+        
 if __name__=="__main__":
     app()
 
