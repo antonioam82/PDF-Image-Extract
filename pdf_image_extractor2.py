@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 import tkinter.scrolledtext as slt
 import zipfile
 import io
@@ -21,7 +21,7 @@ class app():
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
         self.selected_pages = []
-        
+        self.pdf_file = ""
         self.pages_box = Listbox(self.canvas,width=23,height=19)
         self.pages_box.pack()
         self.pages_box.config(yscrollcommand = self.scrollbar.set)
@@ -74,17 +74,21 @@ class app():
         self.pages_box.insert(END,"ALL PAGES")
 
     def select_page(self):
-        pdf_index = self.pages_box.curselection()[0]
-        if pdf_index == self.num_pages.get():
-            dis_text = "ALL PAGES SELECTED\n"
-        else:
-            dis_text = "SELECTED PAGE {}\n".format(pdf_index+1)
-        self.selected_pages.append(pdf_index)
-        self.selected_pages.sort()
-        self.display.insert(END,dis_text)
-        
-        #print(self.selected_pages)
-        
+        try:
+            pdf_index = self.pages_box.curselection()[0]
+            if pdf_index == self.num_pages.get():
+                dis_text = "ALL PAGES SELECTED\n"
+            else:
+                dis_text = "SELECTED PAGE {}\n".format(pdf_index+1)
+            self.selected_pages.append(pdf_index)
+            self.selected_pages.sort()
+            self.display.insert(END,dis_text)
+        except:
+            if self.pdf_file == "":
+                messagebox.showwarning("ERROR","Search a PDF file.")
+            else:
+                messagebox.showwarning("ERROR","Select page\s to extract from.")
+            
     def extract(self):
         for p in self.selected_pages:
             page = self.pdf_file[p]
