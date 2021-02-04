@@ -59,8 +59,8 @@ class app():
     def load_pdf(self):
         pdf_root = filedialog.askopenfilename(initialdir="/",title="SELECT PDF", filetypes=(("PDF files","*.pdf"),("all files","*.*")))
         if pdf_root != "":
-            self.display.insert(END,pdf_root+"\n")
             self.name = (pdf_root.split("/")[-1])
+            self.display.insert(END,"PDF TITLE: {}.\n".format(self.name))
             os.chdir("/".join(pdf_root.split("/")[:-1]))#################
             self.pdf_file = fitz.open(pdf_root)
             self.pdf_name.set(self.name)
@@ -114,6 +114,7 @@ class app():
         t = threading.Thread(target=self.extract)
         t.start()
         
+
 if __name__=="__main__":
     app()
 
