@@ -114,7 +114,6 @@ class app():
         t = threading.Thread(target=self.extract)
         t.start()
         
-
 if __name__=="__main__":
     app()
 
