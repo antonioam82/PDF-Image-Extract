@@ -96,7 +96,7 @@ class app():
                 image_bytes = base_image["image"]
                 image_ext = base_image["ext"]
                 image = Image.open(io.BytesIO(image_bytes))
-                image_name = ("image{}_{}.{}".format(p,count,image_ext))
+                image_name = ("image{}_{}.{}".format(p+1,count,image_ext))
                 image.save(open(image_name,"wb"))
                 self.display.insert(END,"Extracted image {} from page {}.\n".format(count,p+1))
                 count+=1
@@ -106,9 +106,9 @@ class app():
         t = threading.Thread(target=self.extract)
         t.start()
         
-
 if __name__=="__main__":
     app()
+
 
 
 
