@@ -89,18 +89,22 @@ class app():
         for p in self.selected_pages:
             page = self.pdf_file[p]
             image_list = page.getImageList()
-            count = 0
-            for image_index, img in enumerate(image_list, start=1):
-                xref = img[0]
-                base_image = self.pdf_file.extractImage(xref)
-                image_bytes = base_image["image"]
-                image_ext = base_image["ext"]
-                image = Image.open(io.BytesIO(image_bytes))
-                image_name = ("image{}_{}.{}".format(p+1,count,image_ext))
-                image.save(open(image_name,"wb"))
-                self.display.insert(END,"Extracted image {} from page {}.\n".format(count,p+1))
-                count+=1
+            if len(image_list)>0:
+                count = 0
+                for image_index, img in enumerate(image_list, start=1):
+                    xref = img[0]
+                    base_image = self.pdf_file.extractImage(xref)
+                    image_bytes = base_image["image"]
+                    image_ext = base_image["ext"]
+                    image = Image.open(io.BytesIO(image_bytes))
+                    image_name = ("image{}_{}.{}".format(p+1,count,image_ext))
+                    image.save(open(image_name,"wb"))
+                    self.display.insert(END,"Extracted image {} from page {}.\n".format(count,p+1))
+                    count+=1
+            else:
+                self.display.insert(END,"No images on page {}.\n".format(p+1))
         self.display.insert(END,"\nTASK COMPLETED.\n")
+        self.selected_pages = []
 
     def init_extract(self):
         t = threading.Thread(target=self.extract)
