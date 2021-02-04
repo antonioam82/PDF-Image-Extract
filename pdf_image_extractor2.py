@@ -77,19 +77,25 @@ class app():
         try:
             pdf_index = self.pages_box.curselection()[0]
             if pdf_index == self.num_pages.get():
+                for i in range(self.num_pages.get()):
+                    self.selected_pages.append(i)
+                    #print("ELE: ",i)
+                #print(self.selected_pages)
                 dis_text = "ALL PAGES SELECTED\n"
             else:
                 dis_text = "SELECTED PAGE {}\n".format(pdf_index+1)
-            self.selected_pages.append(pdf_index)
+                self.selected_pages.append(pdf_index)
             self.selected_pages.sort()
             self.display.insert(END,dis_text)
-        except:
+        except Exception as e:
             if self.pdf_file == "":
                 messagebox.showwarning("ERROR","Search a PDF file.")
             else:
+                print(str(e))
                 messagebox.showwarning("ERROR","Select page\s to extract from.")
             
     def extract(self):
+        #print(self.selected_pages)
         for p in self.selected_pages:
             page = self.pdf_file[p]
             image_list = page.getImageList()
