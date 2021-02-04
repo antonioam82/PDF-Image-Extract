@@ -70,7 +70,7 @@ class app():
 
     def view_pages(self):
         for i in range(self.num_pages.get()):
-            self.pages_box.insert(END,"PAGE: {}\n".format(i))
+            self.pages_box.insert(END,"PAGE: {}\n".format(i+1))
         self.pages_box.insert(END,"ALL PAGES")
 
     def select_page(self):
@@ -78,7 +78,7 @@ class app():
         if pdf_index == self.num_pages.get():
             dis_text = "ALL PAGES SELECTED\n"
         else:
-            dis_text = "SELECTED PAGE {}\n".format(pdf_index)
+            dis_text = "SELECTED PAGE {}\n".format(pdf_index+1)
         self.selected_pages.append(pdf_index)
         self.selected_pages.sort()
         self.display.insert(END,dis_text)
@@ -98,12 +98,15 @@ class app():
                 image = Image.open(io.BytesIO(image_bytes))
                 image_name = ("image{}_{}.{}".format(p,count,image_ext))
                 image.save(open(image_name,"wb"))
+                self.display.insert(END,"Extracted image {} from page {}.\n".format(count,p+1))
                 count+=1
+        self.display.insert(END,"\nTASK COMPLETED.\n")
 
     def init_extract(self):
         t = threading.Thread(target=self.extract)
         t.start()
         
+
 if __name__=="__main__":
     app()
 
