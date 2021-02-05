@@ -60,14 +60,18 @@ class app():
     def load_pdf(self):
         pdf_root = filedialog.askopenfilename(initialdir="/",title="SELECT PDF", filetypes=(("PDF files","*.pdf"),("all files","*.*")))
         if pdf_root != "":
-            self.name = (pdf_root.split("/")[-1])
-            self.display.insert(END,"PDF TITLE: {}.\n".format(self.name))
-            os.chdir("/".join(pdf_root.split("/")[:-1]))#################
-            self.pdf_file = fitz.open(pdf_root)
-            self.pdf_name.set(self.name)
-            self.num_pages.set(len(self.pdf_file))
-            self.view_pages()
-            self.get_dir()###############################################
+            try:
+                self.name = (pdf_root.split("/")[-1])
+                self.display.insert(END,"PDF TITLE: {}.\n".format(self.name))
+                os.chdir("/".join(pdf_root.split("/")[:-1]))#################
+                self.pdf_file = fitz.open(pdf_root)
+                self.pdf_name.set(self.name)
+                self.num_pages.set(len(self.pdf_file))
+                self.view_pages()
+                self.get_dir()###############################################
+            except:
+                self.display.insert(END,"ERROR.")
+                messagebox.showwarning("ERROR AL ABRIR EL ARCHIVO","No se pudo abrir el archivo")
 
     def view_pages(self):
         for i in range(self.num_pages.get()):
@@ -132,7 +136,6 @@ class app():
         
 if __name__=="__main__":
     app()
-
 
 
 
