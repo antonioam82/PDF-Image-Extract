@@ -80,19 +80,16 @@ class app():
             if pdf_index == self.num_pages.get():
                 for i in range(self.num_pages.get()):
                     self.selected_pages.append(i)
-                    #print("ELE: ",i)
-                #print(self.selected_pages)
                 dis_text = "ALL PAGES SELECTED\n"
             else:
                 dis_text = "SELECTED PAGE {}\n".format(pdf_index+1)
                 self.selected_pages.append(pdf_index)
             self.selected_pages.sort()
             self.display.insert(END,dis_text)
-        except Exception as e:
+        except:
             if self.pdf_file == "":
                 messagebox.showwarning("ERROR","Search a PDF file.")
             else:
-                print(str(e))
                 messagebox.showwarning("ERROR","Select page\s to extract from.")
 
     def make_zip(self):
@@ -100,10 +97,11 @@ class app():
             for i in self.to_zip:
                 zip_file.write(i)
                 os.remove(i)
+        self.display.insert(END,"CREATED ZIP FILE.")
+        self.to_zip = []
             
             
     def extract(self,z):
-        #print(self.selected_pages)
         for p in self.selected_pages:
             page = self.pdf_file[p]
             image_list = page.getImageList()
