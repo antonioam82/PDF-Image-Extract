@@ -21,6 +21,7 @@ class app():
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
         self.selected_pages = []
+        self.to_zip = []
         self.pdf_file = ""
         self.pages_box = Listbox(self.canvas,width=23,height=19)
         self.pages_box.pack()
@@ -43,9 +44,9 @@ class app():
         self.pdfName.place(x=90,y=328)
         self.btnSearch = Button(self.root,text="SEARCH PDF",bg="gold3",command=self.load_pdf)
         self.btnSearch.place(x=10,y=328)
-        self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",bg="PaleGreen1",width=81,command=self.init_extract)
+        self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",bg="PaleGreen1",width=81,command=lambda:self.init_extract(False))
         self.btnExtract.place(x=10,y=370)
-        self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",bg="PaleGreen1",width=81)
+        self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",bg="PaleGreen1",width=81,command=lambda:self.init_extract(True))
         self.btnExtractZip.place(x=10,y=409)
         self.btnSelect = Button(self.root,text="SELECT",width=21,bg="gold3",command=self.select_page)
         self.btnSelect.place(x=604,y=409)
@@ -93,8 +94,15 @@ class app():
             else:
                 print(str(e))
                 messagebox.showwarning("ERROR","Select page\s to extract from.")
+
+    def make_zip(self):
+        with zipfile.ZipFile(self.pdfName.get()+".zip",'w') as zip_file:
+            for i in self.to_zip:
+                zip_file.write(i)
+                os.remove(i)
             
-    def extract(self):
+            
+    def extract(self,z):
         #print(self.selected_pages)
         for p in self.selected_pages:
             page = self.pdf_file[p]
@@ -108,16 +116,20 @@ class app():
                     image_ext = base_image["ext"]
                     image = Image.open(io.BytesIO(image_bytes))
                     image_name = ("image{}_{}.{}".format(p+1,count,image_ext))
+                    self.to_zip.append(image_name)
                     image.save(open(image_name,"wb"))
                     self.display.insert(END,"Extracted image {} from page {}.\n".format(count,p+1))
                     count+=1
             else:
                 self.display.insert(END,"No images on page {}.\n".format(p+1))
         self.display.insert(END,"\nTASK COMPLETED.\n")
+        if z==True:
+            self.make_zip()
+            
         self.selected_pages = []
 
-    def init_extract(self):
-        t = threading.Thread(target=self.extract)
+    def init_extract(self,tz):
+        t = threading.Thread(target=self.extract(tz))
         t.start()
         
 if __name__=="__main__":
