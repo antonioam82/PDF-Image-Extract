@@ -21,6 +21,7 @@ class app():
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
         self.selected_pages = []
+        #self.displays = []
         self.to_zip = []
         self.pdf_file = ""
         self.pages_box = Listbox(self.canvas,width=23,height=19)
@@ -81,16 +82,18 @@ class app():
     def select_page(self):
         try:
             pdf_index = self.pages_box.curselection()[0]
-            if pdf_index == self.num_pages.get():
-                for i in range(self.num_pages.get()):
-                    self.selected_pages.append(i)
-                dis_text = "ALL PAGES SELECTED\n"
-            else:
-                dis_text = "SELECTED PAGE {}\n".format(pdf_index+1)
-                self.selected_pages.append(pdf_index)
-            self.selected_pages.sort()
-            self.display.insert(END,dis_text)
-        except:
+            if pdf_index not in self.selected_pages:
+                if pdf_index == self.num_pages.get():
+                    for i in range(self.num_pages.get()):
+                        self.selected_pages.append(i)
+                    dis_text = "ALL PAGES SELECTED\n"
+                else:
+                    dis_text = "SELECTED PAGE {}\n".format(pdf_index+1)
+                    self.selected_pages.append(pdf_index)
+                self.selected_pages.sort()
+                self.display.insert(END,dis_text)
+        except Exception as e:
+            print(str(e))
             if self.pdf_file == "":
                 messagebox.showwarning("ERROR","Search a PDF file.")
             else:
@@ -103,7 +106,6 @@ class app():
                 os.remove(i)
         self.display.insert(END,"CREATED ZIP FILE.")
         self.to_zip = []
-            
             
     def extract(self,z):
         for p in self.selected_pages:
