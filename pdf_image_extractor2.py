@@ -98,7 +98,8 @@ class app():
                 messagebox.showwarning("ERROR","Select page\s to extract from.")
 
     def make_zip(self):
-        with zipfile.ZipFile(self.pdfName.get()+".zip",'w') as zip_file:
+        final_name,ex = os.path.splitext(self.name)
+        with zipfile.ZipFile(final_name+".zip",'w') as zip_file:
             for i in self.to_zip:
                 zip_file.write(i)
                 os.remove(i)
@@ -136,6 +137,7 @@ class app():
         
 if __name__=="__main__":
     app()
+
 
 
 
