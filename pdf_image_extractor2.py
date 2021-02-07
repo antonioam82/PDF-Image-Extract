@@ -85,6 +85,7 @@ class app():
         try:
             pdf_index = self.pages_box.curselection()[0]
             if pdf_index not in self.selected_pages:
+                self.selected_pages = []######################
                 if pdf_index == self.num_pages.get():
                     for i in range(self.num_pages.get()):
                         self.selected_pages.append(i)
