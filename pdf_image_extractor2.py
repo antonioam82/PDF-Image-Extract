@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter import filedialog, messagebox
-import tkinter.scrolledtext as slt
+#import tkinter.scrolledtext as slt
 import zipfile
+import Pmw
 import io
 import os
 import threading
@@ -30,7 +31,10 @@ class app():
         self.scrollbar.config(command = self.pages_box.yview)
         self.currentDir = Entry(self.root,width=132,textvariable=self.current_dir)
         self.currentDir.place(x=0,y=0)
-        self.display = slt.ScrolledText(self.root,width=70,height=18,bg='dark green',fg='lawn green')
+        #self.display = slt.ScrolledText(self.root,width=70,height=18,bg='dark green',fg='lawn green')
+        #self.display.place(x=10,y=30)
+        self.display = Pmw.ScrolledText(self.root,text_width=70,text_height=18,hscrollmode='none',vscrollmode='dynamic',
+                                        text_background='dark green',text_foreground='lawn green')
         self.display.place(x=10,y=30)
         self.pgeslabel = Label(self.root,text="PAGES:",bg='light slate gray',fg='white')
         self.pgeslabel.place(x=600,y=38)
@@ -89,7 +93,7 @@ class app():
                     dis_text = "SELECTED PAGE {}\n".format(pdf_index+1)
                     self.selected_pages.append(pdf_index)
                 self.selected_pages.sort()
-                self.display.insert(END,dis_text)
+                self.display.appendtext(dis_text)
         except Exception as e:
             print(str(e))
             if self.pdf_file == "":
@@ -103,7 +107,8 @@ class app():
             for i in self.to_zip:
                 zip_file.write(i)
                 os.remove(i)
-        self.display.insert(END,"CREATED ZIP FILE.")
+        #self.display.insert(END,"CREATED ZIP FILE.")
+        self.display.appendtext("CREATED ZIP FILE.")
         self.to_zip = []
             
     def extract(self,z):
@@ -121,11 +126,11 @@ class app():
                     image_name = ("image{}_{}.{}".format(p+1,count,image_ext))
                     self.to_zip.append(image_name)
                     image.save(open(image_name,"wb"))
-                    self.display.insert(END,"Extracted image {} from page {}.\n".format(count,p+1))
+                    self.display.appendtext("Extracted image {} from page {}.\n".format(count,p+1))
                     count+=1
             else:
-                self.display.insert(END,"No images on page {}.\n".format(p+1))
-        self.display.insert(END,"\nTASK COMPLETED.\n")
+                self.display.appendtext("No images on page {}.\n".format(p+1))
+        self.display.appendtext("\nTASK COMPLETED.\n")
         if z==True:
             self.make_zip()
             
