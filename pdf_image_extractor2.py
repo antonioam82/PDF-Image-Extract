@@ -14,7 +14,7 @@ class app():
 
         self.root = Tk()
         self.root.title('PDF Image Extractor')
-        self.root.geometry('782x450')
+        self.root.geometry('782x420')
         self.root.configure(bg='light slate gray')
         self.current_dir = StringVar()
         self.canvas = Canvas(self.root,width=157,height=290)
@@ -23,7 +23,7 @@ class app():
         self.scrollbar.pack(side=RIGHT,fill=Y)
         self.selected_pages = []
         self.pdf_file = ""
-        self.pages_box = Listbox(self.canvas,width=23,height=19)
+        self.pages_box = Listbox(self.canvas,width=23,height=17)
         self.pages_box.pack()
         self.pages_box.config(yscrollcommand = self.scrollbar.set)
         self.scrollbar.config(command = self.pages_box.yview)
@@ -31,7 +31,7 @@ class app():
         self.currentDir.place(x=0,y=0)
         #self.display = slt.ScrolledText(self.root,width=70,height=18,bg='dark green',fg='lawn green')
         #self.display.place(x=10,y=30)
-        self.display = Pmw.ScrolledText(self.root,text_width=70,text_height=18,hscrollmode='none',vscrollmode='dynamic',
+        self.display = Pmw.ScrolledText(self.root,text_width=70,text_height=16,hscrollmode='none',vscrollmode='dynamic',
                                         text_background='dark green',text_foreground='lawn green')
         self.display.place(x=10,y=30)
         self.pgeslabel = Label(self.root,text="PAGES:",bg='light slate gray',fg='white')
@@ -47,18 +47,24 @@ class app():
         self.pdfName.place(x=90,y=328)
         self.btnSearch = Button(self.root,text="SEARCH PDF",bg="gold3",command=self.load_pdf)
         self.btnSearch.place(x=10,y=328)
-        self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",bg="PaleGreen1",width=81,command=lambda:self.init_extract(False))
-        self.btnExtract.place(x=10,y=370)
-        self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",bg="PaleGreen1",width=81,command=lambda:self.init_extract(True))
-        self.btnExtractZip.place(x=10,y=409)
+        self.btnExtract = Button(self.root, text="EXPORT TO CURRENT DIR",bg="PaleGreen1",width=39,command=lambda:self.init_extract(False))
+        self.btnExtract.place(x=10,y=377)
+        self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",bg="PaleGreen1",width=38,command=lambda:self.init_extract(True))
+        self.btnExtractZip.place(x=318,y=377)
         self.btnSelect = Button(self.root,text="SELECT",width=21,bg="gold3",command=self.select_page)
-        self.btnSelect.place(x=604,y=409)
+        self.btnSelect.place(x=604,y=377)
+        self.btnClear = Button(self.root,text="CLEAR ALL",width=82,bg="light gray",command=self.clear_all)
+        self.btnClear.place(x=10,y=291)
         self.get_dir()
         
         self.root.mainloop()
 
     def get_dir(self):
         self.current_dir.set(os.getcwd())
+
+    def clear_all(self):
+        self.selected_pages = []
+        self.display.delete('1.0',END) 
 
     def load_pdf(self):
         pdf_root = filedialog.askopenfilename(initialdir="/",title="SELECT PDF", filetypes=(("PDF files","*.pdf"),("all files","*.*")))
