@@ -109,7 +109,7 @@ class app():
                 zip_file.write(i)
                 os.remove(i)
         #self.display.insert(END,"CREATED ZIP FILE.")
-        self.display.appendtext("\nCREATED ZIP FILE {}.".format(final_name+".zip"))
+        self.display.appendtext("\nCREATED ZIP FILE {}.".format(final_name+".zip\n"))
         self.to_zip = []
             
     def extract(self,z):
