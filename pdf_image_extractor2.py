@@ -22,6 +22,7 @@ class app():
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
         self.selected_pages = []
+        self.to_zip = []
         self.pdf_file = ""
         self.pages_box = Listbox(self.canvas,width=23,height=17)
         self.pages_box.pack()
@@ -89,7 +90,7 @@ class app():
         try:
             pdf_index = self.pages_box.curselection()[0]
             if pdf_index not in self.selected_pages:
-                self.selected_pages = []######################
+                #self.selected_pages = []######################
                 if pdf_index == self.num_pages.get():
                     for i in range(self.num_pages.get()):
                         self.selected_pages.append(i)
@@ -112,8 +113,9 @@ class app():
             for i in self.to_zip:
                 zip_file.write(i)
                 os.remove(i)
+        zip_file.close()
         #self.display.insert(END,"CREATED ZIP FILE.")
-        self.display.appendtext("\nCREATED ZIP FILE {}.".format(final_name+".zip\n"))
+        self.display.appendtext("\nCREATED ZIP FILE {}".format(final_name+".zip\n"))
         self.to_zip = []
             
     def extract(self,z):
@@ -129,6 +131,7 @@ class app():
                     image_ext = base_image["ext"]
                     image = Image.open(io.BytesIO(image_bytes))
                     image_name = ("image{}_{}.{}".format(p+1,count,image_ext))
+                    self.to_zip.append(image_name)
                     image.save(open(image_name,"wb"))
                     self.display.appendtext("Extracted image {} from page {}.\n".format(count,p+1))
                     count+=1
