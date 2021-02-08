@@ -129,7 +129,6 @@ class app():
                     image_ext = base_image["ext"]
                     image = Image.open(io.BytesIO(image_bytes))
                     image_name = ("image{}_{}.{}".format(p+1,count,image_ext))
-                    self.to_zip.append(image_name)
                     image.save(open(image_name,"wb"))
                     self.display.appendtext("Extracted image {} from page {}.\n".format(count,p+1))
                     count+=1
