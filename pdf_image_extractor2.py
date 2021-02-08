@@ -22,8 +22,6 @@ class app():
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
         self.selected_pages = []
-        #self.displays = []
-        self.to_zip = []
         self.pdf_file = ""
         self.pages_box = Listbox(self.canvas,width=23,height=19)
         self.pages_box.pack()
