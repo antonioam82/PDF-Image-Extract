@@ -122,31 +122,32 @@ class app():
             self.to_zip = []
             
     def extract(self,z):
-        for p in self.selected_pages:
-            page = self.pdf_file[p]
-            image_list = page.getImageList()
-            if len(image_list)>0:
-                count = 0
-                for image_index, img in enumerate(image_list, start=1):
-                    xref = img[0]
-                    base_image = self.pdf_file.extractImage(xref)
-                    image_bytes = base_image["image"]
-                    image_ext = base_image["ext"]
-                    image = Image.open(io.BytesIO(image_bytes))
-                    image_name = ("image{}_{}.{}".format(p+1,count,image_ext))
-                    self.to_zip.append(image_name)
-                    image.save(open(image_name,"wb"))
-                    self.display.appendtext("Extracted image {} from page {}.\n".format(count,p+1))
-                    count+=1
-            else:
-                self.display.appendtext("No images on page {}.\n".format(p+1))
+        if len(self.selected_pages) > 0:
+            for p in self.selected_pages:
+                page = self.pdf_file[p]
+                image_list = page.getImageList()
+                if len(image_list)>0:
+                    count = 0
+                    for image_index, img in enumerate(image_list, start=1):
+                        xref = img[0]
+                        base_image = self.pdf_file.extractImage(xref)
+                        image_bytes = base_image["image"]
+                        image_ext = base_image["ext"]
+                        image = Image.open(io.BytesIO(image_bytes))
+                        image_name = ("image{}_{}.{}".format(p+1,count,image_ext))
+                        self.to_zip.append(image_name)
+                        image.save(open(image_name,"wb"))
+                        self.display.appendtext("Extracted image {} from page {}.\n".format(count,p+1))
+                        count+=1
+                else:
+                    self.display.appendtext("No images on page {}.\n".format(p+1))
         
-        if z==True:
-            self.make_zip()
-        else:
-            self.display.appendtext("\nTASK COMPLETED.\n")
+            if z==True:
+                self.make_zip()
+            else:
+                self.display.appendtext("\nTASK COMPLETED.\n")
             
-        self.selected_pages = []
+            self.selected_pages = []
 
     def init_extract(self,tz):
         t = threading.Thread(target=self.extract(tz))
