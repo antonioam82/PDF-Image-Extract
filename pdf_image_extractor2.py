@@ -70,6 +70,7 @@ class app():
 
     def load_pdf(self):
         pdf_root = filedialog.askopenfilename(initialdir="/",title="SELECT PDF", filetypes=(("PDF files","*.pdf"),("all files","*.*")))
+        self.pages_box.delete(0, END)
         if pdf_root != "":
             try:
                 self.name = (pdf_root.split("/")[-1])
