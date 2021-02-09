@@ -14,7 +14,7 @@ class app():
 
         self.root = Tk()
         self.root.title('PDF Image Extractor')
-        self.root.geometry('782x420')
+        self.root.geometry('774x420')
         self.root.configure(bg='light slate gray')
         self.current_dir = StringVar()
         self.canvas = Canvas(self.root,width=157,height=290)
