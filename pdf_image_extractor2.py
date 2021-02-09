@@ -123,7 +123,7 @@ class app():
             
     def extract(self,z):
         if len(self.selected_pages) > 0:
-            self.display.appendtext("EXTRACTING...")
+            self.display.appendtext("EXTRACTING...\n")
             for p in self.selected_pages:
                 page = self.pdf_file[p]
                 image_list = page.getImageList()
