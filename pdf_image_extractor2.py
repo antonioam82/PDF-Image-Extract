@@ -22,6 +22,7 @@ class app():
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
         self.selected_pages = []
+        self.name = ""
         self.to_zip = []
         self.pdf_file = ""
         self.pages_box = Listbox(self.canvas,width=23,height=17)
@@ -108,15 +109,17 @@ class app():
                 messagebox.showwarning("ERROR","Select page\s to extract from.")
 
     def make_zip(self):
-        final_name,ex = os.path.splitext(self.name)
-        with zipfile.ZipFile(final_name+".zip",'w') as zip_file:
-            for i in self.to_zip:
-                zip_file.write(i)
-                os.remove(i)
-        zip_file.close()
-        #self.display.insert(END,"CREATED ZIP FILE.")
-        self.display.appendtext("\nCREATED ZIP FILE {}".format(final_name+".zip\n"))
-        self.to_zip = []
+        if self.name != "":
+            final_name,ex = os.path.splitext(self.name)
+            with zipfile.ZipFile(final_name+".zip",'w') as zip_file:
+                for i in self.to_zip:
+                    zip_file.write(i)
+                    os.remove(i)
+            zip_file.close()
+            #self.display.insert(END,"CREATED ZIP FILE.")
+            self.display.appendtext("\nCREATED ZIP FILE {}".format(final_name+".zip\n"))
+            self.display.appendtext("\nTASK COMPLETED.\n")
+            self.to_zip = []
             
     def extract(self,z):
         for p in self.selected_pages:
@@ -137,9 +140,11 @@ class app():
                     count+=1
             else:
                 self.display.appendtext("No images on page {}.\n".format(p+1))
-        self.display.appendtext("\nTASK COMPLETED.\n")
+        
         if z==True:
             self.make_zip()
+        else:
+            self.display.appendtext("\nTASK COMPLETED.\n")
             
         self.selected_pages = []
 
