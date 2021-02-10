@@ -124,7 +124,6 @@ class app():
             
     def extract(self,z):
         if len(self.selected_pages) > 0:
-            self.display.appendtext("EXTRACTING...\n")
             for p in self.selected_pages:
                 page = self.pdf_file[p]
                 image_list = page.getImageList()
@@ -152,6 +151,7 @@ class app():
             self.selected_pages = []
 
     def init_extract(self,tz):
+        self.display.appendtext("EXTRACTING...\n")
         t = threading.Thread(target=self.extract(tz))
         t.start()
         
