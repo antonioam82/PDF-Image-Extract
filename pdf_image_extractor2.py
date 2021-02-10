@@ -151,7 +151,6 @@ class app():
             self.selected_pages = []
 
     def init_extract(self,tz):
-        self.display.appendtext("EXTRACTING...\n")
         t = threading.Thread(target=self.extract(tz))
         t.start()
         
