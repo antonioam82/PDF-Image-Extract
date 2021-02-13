@@ -104,8 +104,7 @@ class app():
                     self.selected_pages.append(pdf_index)
                 self.selected_pages.sort()
                 self.display.appendtext(dis_text)
-        except Exception as e:
-            print(str(e))
+        except:
             if self.pdf_file == "":
                 messagebox.showwarning("ERROR","Search a PDF file.")
             else:
