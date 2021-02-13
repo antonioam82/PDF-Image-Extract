@@ -82,8 +82,8 @@ class app():
                 self.view_pages()
                 self.get_dir()###############################################
             except Exception as e:
-                print(str(e))
-                messagebox.showwarning("ERROR","Can't open the file")
+                self.display.appendtext('\n{}.\n'.format(str(e))) 
+                messagebox.showwarning("ERROR","Can't open the file.")
 
     def view_pages(self):
         for i in range(self.num_pages.get()):
