@@ -74,13 +74,15 @@ class app():
         if pdf_root != "":
             try:
                 self.name = (pdf_root.split("/")[-1])
+                self.display.appendtext('PDF TITTLE: {}.\n'.format(self.name)) 
                 os.chdir("/".join(pdf_root.split("/")[:-1]))#################
                 self.pdf_file = fitz.open(pdf_root)
                 self.pdf_name.set(self.name)
                 self.num_pages.set(len(self.pdf_file))
                 self.view_pages()
                 self.get_dir()###############################################
-            except:
+            except Exception as e:
+                print(str(e))
                 messagebox.showwarning("ERROR","Can't open the file")
 
     def view_pages(self):
