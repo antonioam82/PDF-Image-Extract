@@ -43,7 +43,7 @@ class app():
         self.pges.place(x=649,y=38)
         self.num_pages.set(0)
         self.pdf_name = StringVar()
-        self.listlabel = Label(self.root,text="PAGE\S TO EXTRACT FROM:",bg='light slate gray',fg='white')
+        self.listlabel = Label(self.root,text="LIST OF PAGES:",bg='light slate gray',fg='white')
         self.listlabel.place(x=601,y=77)
         self.pdfName = Entry(self.root,width=45,bg='black',fg='light green',font=('arial',14),textvariable=self.pdf_name)
         self.pdfName.place(x=95,y=333)
@@ -53,7 +53,7 @@ class app():
         self.btnExtract.place(x=10,y=377)
         self.btnExtractZip = Button(self.root,text="EXPORT TO ZIP",bg="PaleGreen1",width=38,command=lambda:self.init_extract(True))
         self.btnExtractZip.place(x=318,y=377)
-        self.btnSelect = Button(self.root,text="SELECT",width=21,bg="gold3",command=self.select_page)
+        self.btnSelect = Button(self.root,text="SELECT PAGE",width=21,bg="gold3",command=self.select_page)
         self.btnSelect.place(x=604,y=377)
         self.btnClear = Button(self.root,text="CLEAR ALL",width=82,bg="light gray",command=self.clear_all)
         self.btnClear.place(x=10,y=291)
@@ -75,12 +75,12 @@ class app():
             try:
                 self.name = (pdf_root.split("/")[-1])
                 self.display.appendtext('PDF TITTLE: {}.\n'.format(self.name)) 
-                os.chdir("/".join(pdf_root.split("/")[:-1]))#################
+                os.chdir("/".join(pdf_root.split("/")[:-1]))
                 self.pdf_file = fitz.open(pdf_root)
                 self.pdf_name.set(self.name)
                 self.num_pages.set(len(self.pdf_file))
                 self.view_pages()
-                self.get_dir()###############################################
+                self.get_dir()
             except Exception as e:
                 self.display.appendtext('\n{}.\n'.format(str(e))) 
                 messagebox.showwarning("ERROR","Can't open the file.")
@@ -94,7 +94,6 @@ class app():
         try:
             pdf_index = self.pages_box.curselection()[0]
             if pdf_index not in self.selected_pages:
-                #self.selected_pages = []######################
                 if pdf_index == self.num_pages.get():
                     for i in range(self.num_pages.get()):
                         self.selected_pages.append(i)
